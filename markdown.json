@@ -1,0 +1,55 @@
+{
+	// Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+    "Insert fenced code block": {
+        "prefix": "fenced codeblock numberLines",
+        "body": [
+            "```{.${1|bash,sql,python,c,c++,c#,ruby,go,java,php,htm,css,javascript,json,markdown,console,yaml|} .numberLines}",
+            "${TM_SELECTED_TEXT}$0",
+            "```",
+            ""
+        ],
+        "description": "Insert fenced code block with line numbers"
+    },
+    "Insert YAML frontmatter": {
+        "prefix": "yaml frontmatter",
+        "body": [
+            "---",
+            "documentclass: ${1:article}",
+            "lang: ${2:pt-BR}",
+            "",
+            "title: $3",
+            "author: ${4:Lucas Pimentel Lellis}",
+            "---",
+            "",
+            "$0"
+        ],
+        "description": "Insert YAML frontmatter"
+    },
+    "Insert local image": {
+        "prefix": "image - local",
+        "body": [
+            "![${TM_SELECTED_TEXT:${1:alt}}](images/${2:filename})$0"
+        ],
+        "description": "Insert local image"
+    },
+    "Unnumbered Header": {
+        "prefix": "unnumbered header",
+        "body": [
+            "${TM_SELECTED_TEXT} {.unnumbered}$0"
+        ],
+        "description": "Adds the option for the header to be unnumbered on the TOC"
+    }
+}
