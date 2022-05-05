@@ -56,5 +56,123 @@
             ""
         ],
         "description": "Boilerplate code for new SQL*Plus scripts"
+    },
+    "Gather Schema Stats": {
+        "prefix": "schema stats",
+        "body": [
+            "begin",
+            "    dbms_stats.gather_schema_stats(",
+            "        ownname          => '${1:${TM_SELECTED_TEXT/(.*)/${1:/upcase}/}}',",
+            "        estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,",
+            "        method_opt       => 'FOR ALL COLUMNS SIZE AUTO',",
+            "        degree           => ${2:PARALLEL_DEGREE},",
+            "        options          => 'GATHER EMPTY',",
+            "        no_invalidate    => false",
+            "    );",
+            "",
+            "    dbms_stats.gather_schema_stats(",
+            "        ownname          => '${1:${TM_SELECTED_TEXT/(.*)/${1:/upcase}/}}',",
+            "        estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,",
+            "        method_opt       => 'FOR ALL COLUMNS SIZE AUTO',",
+            "        degree           => ${2:PARALLEL_DEGREE},",
+            "        options          => 'GATHER STALE',",
+            "        no_invalidate    => false",
+            "    );",
+            "end;",
+            "/",
+            "",
+            "$0"
+        ],
+        "description": "Gather Statistics for an Oracle Schema"
+    },
+    "Gather Table Stats": {
+        "prefix": "table stats",
+        "body": [
+            "begin",
+            "    dbms_stats.gather_table_stats(",
+            "        ownname          => '${1:OWNER}',",
+            "        tabname          => '${2:TABLE_NAME}',",
+            "        estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,",
+            "        method_opt       => 'FOR ALL COLUMNS SIZE AUTO',",
+            "        degree           => ${3:PARALLEL_DEGREE},",
+            "        no_invalidate    => false",
+            "    );",
+            "end;",
+            "/",
+            "",
+            "$0"
+        ],
+        "description": "Gather Statistics for an Oracle Table"
+    },
+    "Gather Table Partition Stats": {
+        "prefix": "table partition stats",
+        "body": [
+            "begin",
+            "    dbms_stats.gather_table_stats(",
+            "        ownname          => '${1:OWNER}',",
+            "        tabname          => '${2:TABLE_NAME}',",
+            "        partname         => '${3:PARTITION_NAME}',",
+            "        granularity      => 'PARTITION',",
+            "        estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,",
+            "        method_opt       => 'FOR ALL COLUMNS SIZE AUTO',",
+            "        degree           => ${3:PARALLEL_DEGREE},",
+            "        no_invalidate    => false",
+            "    );",
+            "end;",
+            "/",
+            "",
+            "$0"
+        ],
+        "description": "Gather Statistics for an Oracle Table Partition"
+    },
+    "Gather Table Subpartition Stats": {
+        "prefix": "table subpartition stats",
+        "body": [
+            "begin",
+            "    dbms_stats.gather_table_stats(",
+            "        ownname          => '${1:OWNER}',",
+            "        tabname          => '${2:TABLE_NAME}',",
+            "        partname         => '${3:PARTITION_NAME}',",
+            "        granularity      => 'SUBPARTITION',",
+            "        estimate_percent => DBMS_STATS.AUTO_SAMPLE_SIZE,",
+            "        method_opt       => 'FOR ALL COLUMNS SIZE AUTO',",
+            "        degree           => ${3:PARALLEL_DEGREE},",
+            "        no_invalidate    => false",
+            "    );",
+            "end;",
+            "/",
+            "",
+            "$0"
+        ],
+        "description": "Gather Statistics for an Oracle Table Subpartition"
+    },
+    "Gather Dictionary Stats": {
+        "prefix": "dictionary stats",
+        "body": [
+            "begin",
+            "    dbms_stats.gather_dictionary_stats(",
+            "        degree        => ${1:PARALLEL_DEGREE},",
+            "        no_invalidate => false",
+            "    );",
+            "end;",
+            "/",
+            "",
+            "$0"
+        ],
+        "description": "Gather Statistics for Oracle's Dictionary"
+    },
+    "Gather Fixed Objects Stats": {
+        "prefix": "fixed objects stats",
+        "body": [
+            "begin",
+            "    dbms_stats.gather_fixed_objects_stats(",
+            "        no_invalidate => false",
+            "    );",
+            "end;",
+            "/",
+            "",
+            "$0"
+        ],
+        "description": "Gather Statistics for Oracle's Fixed Tables"
     }
 }
